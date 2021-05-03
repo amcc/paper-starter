@@ -51,7 +51,7 @@ window.onload = function () {
   textY = paper.view.size.height - 50;
 
   // timelimit
-  timeLimit = Math.random() * 80 + 20;
+  timeLimit = Math.random() * 200 + 20;
 
   // pendulum setup
   cx = paper.view.size.width / 2;
