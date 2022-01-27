@@ -38,6 +38,8 @@ let textX = 50;
 let textY = 50;
 
 let timeLimit;
+let maxTimeLimit = 100;
+let minTimeLimit = 10;
 let printed = false;
 
 // Make the paper scope global, by injecting it into window:
@@ -51,7 +53,7 @@ window.onload = function () {
   textY = paper.view.size.height - 50;
 
   // timelimit
-  timeLimit = Math.random() * 200 + 20;
+  timeLimit = Math.random() * maxTimeLimit + minTimeLimit;
 
   // pendulum setup
   cx = paper.view.size.width / 2;
@@ -75,16 +77,26 @@ window.onload = function () {
   // Starting angles
   // a1 = Math.PI / 2;
   // a2 = Math.PI / 4;
-  a1 = Math.PI;
-  a2 = Math.PI;
+  const variance = 0.000001;
+  const angleVar = (variance) =>
+    Math.random() * Math.PI * variance - Math.PI / (variance / 2);
+  const angleVar1 = angleVar(variance);
+  const angleVar2 = angleVar(variance);
+  console.log("var", angleVar1, angleVar2);
+  a1 = Math.PI + angleVar1;
+  a2 = Math.PI + angleVar2;
 
   titleText = new PointText(new Point(textX, textY));
   radius1Text = new PointText(new Point(textX, textY + textHeight));
   radius2Text = new PointText(new Point(textX, textY + textHeight * 2));
   mass1Text = new PointText(new Point(textX, textY + textHeight * 3));
   mass2Text = new PointText(new Point(textX, textY + textHeight * 4));
-  titleText.fontFamily = radius1Text.fontFamily = radius2Text.fontFamily = mass1Text.fontFamily = mass2Text.fontFamily =
-    "IBM Plex Mono";
+  titleText.fontFamily =
+    radius1Text.fontFamily =
+    radius2Text.fontFamily =
+    mass1Text.fontFamily =
+    mass2Text.fontFamily =
+      "IBM Plex Mono";
   titleText.justification = "left";
   titleText.fontSize = 12;
 
