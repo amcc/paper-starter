@@ -18,10 +18,16 @@ body {
   align-items: center;
 }
 canvas[resize] {
-  width: 100%;
+  /* width: 100%;
   height: 100%;
   max-width: 100vw;
-  max-height: 70.714vw;
+  max-height: 70.714vw; */
+
+  /* width: 1587px;
+  height: 1123px; */
+
+  height: 100vh;
+  width: 141.3vh;
 }
 #image {
   display: none;

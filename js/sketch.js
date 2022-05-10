@@ -40,6 +40,8 @@ let textY = 50;
 let timeLimit;
 let maxTimeLimit = 50;
 let minTimeLimit = 10;
+// let maxTimeLimit = 5;
+// let minTimeLimit = 0;
 let printed = false;
 
 // Make the paper scope global, by injecting it into window:
@@ -202,7 +204,9 @@ window.onload = function () {
     }
   };
 
-  paper.view.onResize = function (resizeAmount) {};
+  paper.view.onResize = function (resizeAmount) {
+    // console.log('resized')
+  };
 
   // make an svg
   function downloadAsSVG(fileName) {
@@ -234,9 +238,34 @@ window.onload = function () {
 
   function print() {
     // pendulumLayer.remove(); // this prevents the redCircle from being drawn
+    // aiming for this pixel size for A3 in inkscape
+    // height: 1123px;
+    // width: 1587px;
+    let scaleFactor = 1587 / paper.project.view.viewSize.width;
+    let currentWidth = paper.project.view.viewSize.width;
+    let currentHeight = paper.project.view.viewSize.height;
+    // console.log(document);
+    // const canvas = document.getElementById("myCanvas");
+    // console.log(canvas);
+    console.log(paper);
+    console.log(
+      "before",
+      paper.project.view.viewSize.width,
+      paper.project.view.viewSize.height
+    );
+    console.log("scaleFactor", scaleFactor);
+    paper.project.view.scale(scaleFactor, [0, 0]);
+    paper.view.viewSize = new paper.Size(1585, 1123);
+    // paper.project.view.scale(scaleFactor);
+    console.log(
+      "after",
+      paper.project.view.viewSize.width,
+      paper.project.view.viewSize.height
+    );
     path.smooth();
     downloadAsSVG();
-    paper.project.layers.push(pendulumLayer); // now the redCircle is back
+    // paper.project.view.scale(1 / scaleFactor);
+    // paper.project.layers.push(pendulumLayer); // now the redCircle is back
   }
 
   // now draw
