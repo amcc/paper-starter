@@ -38,7 +38,7 @@ let textX = 50;
 let textY = 50;
 
 let timeLimit;
-let maxTimeLimit = 100;
+let maxTimeLimit = 50;
 let minTimeLimit = 10;
 let printed = false;
 
@@ -56,8 +56,21 @@ window.onload = function () {
   timeLimit = Math.random() * maxTimeLimit + minTimeLimit;
 
   // pendulum setup
+  // center of pendulum
   cx = paper.view.size.width / 2;
   cy = paper.view.size.height / 2.2;
+
+  let cLength = 20;
+  let centerHoriz = new Path.Line({
+    from: [cx - cLength / 2, cy],
+    to: [cx + cLength / 2, cy],
+    strokeColor: "red",
+  });
+  let centerVert = new Path.Line({
+    from: [cx, cy - cLength / 2],
+    to: [cx, cy + cLength / 2],
+    strokeColor: "red",
+  });
 
   // Values are slightly random, meaning every viewing is slightly different
   r1 =
