@@ -130,18 +130,19 @@ window.onload = function () {
   pendulumLayer = new paper.Layer();
   pendulumLayer.activate();
 
+  let alpha = 0.0;
   pen1 = new Path.Circle({
     center: [cx, cy + r1],
     radius: m1,
-    strokeColor: "black",
-    fillColor: "black",
+    strokeColor: "red",
+    fillColor: `rgba(0,0,0,${alpha})`,
   });
 
   pen2 = new Path.Circle({
     center: [cx, cy + r1 + r2],
     radius: m2,
-    strokeColor: "black",
-    fillColor: "black",
+    strokeColor: "red",
+    fillColor: `rgba(0,0,0,${alpha})`,
   });
 
   paper.view.onMouseMove = function (event) {};
