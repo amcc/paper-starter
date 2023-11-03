@@ -51,8 +51,8 @@ window.onload = function () {
   paper.setup("myCanvas");
 
   g = (Math.random() * 7 + 3).toFixed(2);
-  textX = 50;
-  textY = paper.view.size.height - 50;
+  textX = 240;
+  textY = paper.view.size.height - 40;
 
   // timelimit
   timeLimit = Math.random() * maxTimeLimit + minTimeLimit;
@@ -200,7 +200,8 @@ window.onload = function () {
         3
       )} M:${m1.toFixed(3)}/${m2.toFixed(3)} G:${g} T:${event.time.toFixed(3)}`;
     } else if (!printed) {
-      print();
+      // create the svg at the time
+      // print();
       printed = true;
     }
   };
