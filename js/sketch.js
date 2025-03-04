@@ -1,4 +1,7 @@
-let svgCount = 0;
+let width;
+let height;
+
+let path;
 
 // Make the paper scope global, by injecting it into window:
 paper.install(window);
@@ -6,33 +9,35 @@ window.onload = function () {
   // Setup directly from canvas id:
   paper.setup("myCanvas");
 
-  // get the height and width of our canvas
-  let height = view.bounds.height;
-  let width = view.bounds.width;
+  // helper variables
 
-  new Path.Circle({
+  width = paper.view.size.width;
+  height = paper.view.size.height;
+
+  path = new Path.Rectangle({
     center: [width / 2, height / 2],
-    radius: 100,
-    strokeColor: "red",
-    fillColor: `rgba(255,255,255)`,
+    size: [width / 3, width / 3],
+    strokeColor: "black",
   });
 
-  paper.view.onMouseMove = function (event) {
-    // any on mouse move actions here
-  };
+  paper.view.onMouseMove = function (event) {};
 
   paper.view.onFrame = function (event) {
-    // frame by frame stuff here
+    path.rotate(3);
   };
 
   paper.view.onResize = function (resizeAmount) {
-    // resizing events here
+    path.position = view.center;
   };
 
-  // make an svg
+  ////////////////////////
+  // DOWNLOAD FUNCTIONS //
+  ////////////////////////
+
   function downloadAsSVG(fileName) {
+    let date = Date.now();
     if (!fileName) {
-      fileName = `yourimage-${svgCount}.svg`;
+      fileName = `svg-${svgCount}-${date}.svg`;
     }
     svgCount++;
 
@@ -52,15 +57,27 @@ window.onload = function () {
 
   //Listen for SHIFT-P to save content as SVG file.
   t.onKeyUp = function (event) {
-    if (event.character == "s" || event.character == "S") {
+    if (event.character == "s") {
       print();
     }
   };
 
   function print() {
-    downloadAsSVG(); // paper.project.layers.push(pendulumLayer); // now the redCircle is back
+    // pendulumLayer.remove(); // this prevents the redCircle from being drawn
+    // mainPath.smooth();
+    downloadAsSVG();
   }
 
   // now draw
   paper.view.draw();
+};
+// end of printing/svg functions
+
+// Helper functions for radians and degrees.
+Math.radians = function (degrees) {
+  return (degrees * Math.PI) / 180;
+};
+
+Math.degrees = function (radians) {
+  return (radians * 180) / Math.PI;
 };
